@@ -5,7 +5,7 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.app.mydrai.core.presentation.base.BaseViewModel
-import com.app.mydrai.data.api.usermodel.UserListModel
+import com.app.mydrai.data.api.QuestionModel
 import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
@@ -21,8 +21,8 @@ class OTPLoginViewModel(application: Application) : BaseViewModel(application) {
         mobile_no: String,
         is_otp_verified: Boolean,
         password: String
-    ): LiveData<UserListModel> {
-    val loginModel = MutableLiveData<UserListModel>()
+    ): LiveData<QuestionModel> {
+    val loginModel = MutableLiveData<QuestionModel>()
         /*      uiScope.launch {
 
               val resultDef: Deferred<Response<LoginModel>> =

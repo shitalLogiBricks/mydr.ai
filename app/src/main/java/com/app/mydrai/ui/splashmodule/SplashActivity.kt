@@ -7,6 +7,7 @@ import com.app.mydrai.R
 import com.app.mydrai.core.presentation.base.BaseActivity
 import com.app.mydrai.databinding.ActivitySplashBinding
 import com.app.mydrai.ui.loginmodule.LoginActivity
+import com.app.mydrai.ui.mainModule.MainActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -18,7 +19,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>(), S
         super.onCreate(savedInstanceState)
         handler = Handler()
         handler!!.postDelayed({
-            val intent = Intent(this@SplashActivity, LoginActivity::class.java)
+            val intent = Intent(this@SplashActivity, MainActivity::class.java)
             startActivity(intent)
             finish()
         }, 3000)
