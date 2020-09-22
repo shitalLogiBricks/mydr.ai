@@ -5,9 +5,10 @@ class WebServiceAPI {
     companion object {
 
         //UAT
-        const val SERVERBASE_URL = "https://reqres.in/api/"
+        const val SERVERBASE_URL = "http://api.mydr.ai/"
 
-        const val UserList = "users"
+        const val getAllSession = "session"
+        const val getAllChatData = "chat"
 
 
     }

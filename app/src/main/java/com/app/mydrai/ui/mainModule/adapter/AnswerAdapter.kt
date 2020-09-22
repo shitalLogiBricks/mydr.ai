@@ -1,6 +1,7 @@
 package com.app.mydrai.ui.mainModule.adapter
 
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -50,8 +51,9 @@ class AnswerAdapter(
 
 
         val animation1 = AnimationUtils.loadAnimation(context,
-            R.anim.slide_out_left
+            R.anim.slide_in_right
         )
+        animation1.setRepeatCount(ValueAnimator.INFINITE);
         holder.txtAnswer.startAnimation(animation1)
     }
 }

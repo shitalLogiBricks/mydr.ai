@@ -1,5 +1,6 @@
 package com.app.mydrai.ui.mainModule.adapter
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -66,6 +67,7 @@ class QuestionAdapter(
         val animation1 = AnimationUtils.loadAnimation(context,
             R.anim.slide_down_anim
         )
+        animation1.setRepeatCount(ValueAnimator.INFINITE);
         holder.imgAppLogo.startAnimation(animation1)
 
 

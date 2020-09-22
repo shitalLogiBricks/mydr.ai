@@ -2,6 +2,7 @@ package com.app.mydrai.ui.mainModule
 
 
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.mydrai.R
@@ -10,6 +11,9 @@ import com.app.mydrai.data.api.AnswerModel
 import com.app.mydrai.data.api.QuestionModel
 import com.app.mydrai.databinding.ActivityMainBinding
 import com.app.mydrai.ui.mainModule.adapter.QuestionAdapter
+import logi.retail.utils.DialogUtils
+import logi.retail.utils.SessionManger
+import logi.retail.utils.SessionManger.Companion.PREF_FILE_NAME
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -24,6 +28,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), MainNav
     var answerList1 = ArrayList<AnswerModel>()
     var answerList2 = ArrayList<AnswerModel>()
     var answerList3 = ArrayList<AnswerModel>()
+    var sessionManger:SessionManger?=null
 
 
     override fun getLayoutId(): Int {
@@ -38,6 +43,15 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), MainNav
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activityMainBinding = getViewDataBinding()
+        sessionManger = SessionManger(this@MainActivity,PREF_FILE_NAME)
+        DialogUtils.startProgressDialog(this@MainActivity);
+        mainViewModel.sessionApiCalling()
+            .observe(this, Observer {
+                if (it != null) {
+                    DialogUtils.stopProgressDialog()
+                    sessionManger?.setSessionId(it.sessionId.toString())
+                }
+            })
 
         var questionModel = QuestionModel()
         questionModel.mainQuestion = "Main Question"
@@ -71,7 +85,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), MainNav
         questionModel = QuestionModel()
         questionModel.mainQuestion = "Main Question"
         questionModel.subQuestion = "sub Question"
-       var  answerModel2 = AnswerModel()
+        var answerModel2 = AnswerModel()
         answerModel2.answer = "Yes"
         answerList2.add(answerModel2)
         answerModel2.answer = "no"
@@ -90,12 +104,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), MainNav
         answerList3.add(answerModel3)
         questionModel.answerModel = answerList3
         questionList.add(questionModel)
-
-
-
-
-
-
 
 
         questionAdapter =

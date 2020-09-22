@@ -3,6 +3,7 @@
 <set xmlns:android="http://schemas.android.com/apk/res/android">
     <translate
         android:fromXDelta="40%p"
+        android:repeatCount="infinite"
         android:interpolator="@android:anim/decelerate_interpolator"
         android:toXDelta="0" />
 

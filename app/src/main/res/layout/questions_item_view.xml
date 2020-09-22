@@ -44,11 +44,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerAndList"
-        android:layout_width="@dimen/_100sdp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:layoutAnimation="@anim/layout_animation_from_right"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="32dp"
+        android:foregroundGravity="right"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
