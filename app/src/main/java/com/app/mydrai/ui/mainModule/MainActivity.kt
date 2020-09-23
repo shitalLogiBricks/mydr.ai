@@ -2,33 +2,29 @@ package com.app.mydrai.ui.mainModule
 
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.mydrai.R
 import com.app.mydrai.core.presentation.base.BaseActivity
-import com.app.mydrai.data.api.AnswerModel
-import com.app.mydrai.data.api.QuestionModel
+import com.app.mydrai.data.api.QuestionAndAnswerModel
 import com.app.mydrai.databinding.ActivityMainBinding
-import com.app.mydrai.ui.mainModule.adapter.QuestionAdapter
+import com.app.mydrai.ui.mainModule.adapter.AnswerAdapter
 import logi.retail.utils.DialogUtils
 import logi.retail.utils.SessionManger
 import logi.retail.utils.SessionManger.Companion.PREF_FILE_NAME
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), MainNavigator,
-    QuestionAdapter.QuestionAdapterSelectionListner {
+class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), MainNavigator {
 
     var activityMainBinding: ActivityMainBinding? = null
     val mainViewModel: MainViewModel by viewModel()
-    var questionAdapter: QuestionAdapter? = null
-    var questionList = ArrayList<QuestionModel>()
-    var answerList = ArrayList<AnswerModel>()
-    var answerList1 = ArrayList<AnswerModel>()
-    var answerList2 = ArrayList<AnswerModel>()
-    var answerList3 = ArrayList<AnswerModel>()
-    var sessionManger:SessionManger?=null
+    var questionAdapter: AnswerAdapter? = null
+    var questionList = ArrayList<QuestionAndAnswerModel>()
+    var sessionManger: SessionManger? = null
+    var mainNavigator:MainNavigator?=null
 
 
     override fun getLayoutId(): Int {
@@ -43,87 +39,46 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), MainNav
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activityMainBinding = getViewDataBinding()
-        sessionManger = SessionManger(this@MainActivity,PREF_FILE_NAME)
+        mainNavigator=this
+        sessionManger = SessionManger(this@MainActivity, PREF_FILE_NAME)
         DialogUtils.startProgressDialog(this@MainActivity);
-        mainViewModel.sessionApiCalling()
+        mainViewModel.sessionApiCalling().observe(this, Observer {
+            if (it != null) {
+
+                sessionManger?.setSessionId(it.sessionId?.toString()!!)
+
+                callChatApi()
+            }
+        })
+    }
+
+    private fun callChatApi() {
+        mainViewModel.chatApiCalling(sessionManger?.getSessionId()!!, "")
             .observe(this, Observer {
-                if (it != null) {
+                if (it.error == null) {
                     DialogUtils.stopProgressDialog()
-                    sessionManger?.setSessionId(it.sessionId.toString())
+                    activityMainBinding?.txtQuestion?.text = it.question
+                    var option: List<String>? = it.options
+                    questionAdapter =
+                        AnswerAdapter(
+                            this@MainActivity,
+                            option as ArrayList<String>,mainNavigator
+
+                        )
+                    activityMainBinding!!.recyclerAndList.layoutManager =
+                        LinearLayoutManager(this@MainActivity, RecyclerView.VERTICAL, false)
+                    activityMainBinding!!.recyclerAndList.adapter = questionAdapter
+
+                } else if (it?.error!=null) {
+                    DialogUtils.stopProgressDialog()
+                    Toast.makeText(this@MainActivity, "" + it.error, Toast.LENGTH_SHORT).show()
                 }
             })
-
-        var questionModel = QuestionModel()
-        questionModel.mainQuestion = "Main Question"
-        questionModel.subQuestion = "sub Question"
-        var answerModel = AnswerModel()
-        answerModel.answer = "Yes"
-        answerList.add(answerModel)
-        answerModel = AnswerModel()
-        answerModel.answer = "no"
-        answerList.add(answerModel)
-        questionModel.answerModel = answerList
-        questionList.add(questionModel)
-
-
-
-
-        questionModel = QuestionModel()
-        questionModel.mainQuestion = "Main Question"
-        questionModel.subQuestion = "sub Question"
-        var answerModel1 = AnswerModel()
-        answerModel1.answer = "Yes"
-        answerList1.add(answerModel1)
-        answerModel1 = AnswerModel()
-        answerModel1.answer = "no"
-        answerList1.add(answerModel1)
-        questionModel.answerModel = answerList1
-        questionList.add(questionModel)
-
-
-
-        questionModel = QuestionModel()
-        questionModel.mainQuestion = "Main Question"
-        questionModel.subQuestion = "sub Question"
-        var answerModel2 = AnswerModel()
-        answerModel2.answer = "Yes"
-        answerList2.add(answerModel2)
-        answerModel2.answer = "no"
-        answerList2.add(answerModel2)
-        questionModel.answerModel = answerList2
-        questionList.add(questionModel)
-
-
-        questionModel = QuestionModel()
-        questionModel.mainQuestion = "Main Question"
-        questionModel.subQuestion = "sub Question"
-        var answerModel3 = AnswerModel()
-        answerModel3.answer = "Yes"
-        answerList3.add(answerModel3)
-        answerModel3.answer = "no"
-        answerList3.add(answerModel3)
-        questionModel.answerModel = answerList3
-        questionList.add(questionModel)
-
-
-        questionAdapter =
-            QuestionAdapter(
-                this@MainActivity,
-                questionList,
-                this
-            )
-        activityMainBinding!!.recyclerView.layoutManager =
-            LinearLayoutManager(this@MainActivity, RecyclerView.VERTICAL, false)
-        activityMainBinding!!.recyclerView.adapter = questionAdapter
 
 
     }
 
     override fun setUp(savedInstanceState: Bundle?) {
-
-    }
-
-    override fun onClickOnQuesAdapter(position: Int, genderModel: QuestionModel) {
 
     }
 

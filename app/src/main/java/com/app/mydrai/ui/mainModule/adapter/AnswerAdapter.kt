@@ -1,23 +1,21 @@
 package com.app.mydrai.ui.mainModule.adapter
 
 
-import android.animation.ValueAnimator
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import android.view.animation.LayoutAnimationController
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.app.mydrai.R
 import com.app.mydrai.data.api.AnswerModel
-import java.util.*
+import com.app.mydrai.ui.mainModule.MainNavigator
 
 
 class AnswerAdapter(
     var context: Context,
-    var arrayListTaxrate: ArrayList<AnswerModel>
+    var arrayListTaxrate: List<String>?,
+    mainNavigator: MainNavigator?
 ) : RecyclerView.Adapter<AnswerAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -39,21 +37,17 @@ class AnswerAdapter(
     }
 
     override fun getItemCount(): Int {
-        return arrayListTaxrate.size
+        return arrayListTaxrate?.size!!
 
     }
 
 
     override fun onBindViewHolder(holder: AnswerAdapter.ViewHolder, position: Int) {
-
-
-        holder.txtAnswer.text = arrayListTaxrate.get(position).answer
-
-
-        val animation1 = AnimationUtils.loadAnimation(context,
+        holder.txtAnswer.text = arrayListTaxrate?.get(position)
+     /*   val animation1 = AnimationUtils.loadAnimation(context,
             R.anim.slide_in_right
         )
         animation1.setRepeatCount(ValueAnimator.INFINITE);
-        holder.txtAnswer.startAnimation(animation1)
+        holder.txtAnswer.startAnimation(animation1)*/
     }
 }

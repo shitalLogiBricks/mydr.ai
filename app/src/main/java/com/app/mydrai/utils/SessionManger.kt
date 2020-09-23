@@ -23,13 +23,13 @@ public class SessionManger(context: Context, prefFileName: String) {
         mPrefs.edit().putBoolean(PREF_KEY_USER_LOGGED_IN_MODE, mode).apply()
     }
 
-    fun setSessionId(session_id: String) {
-        mPrefs.edit().putString(SESSION_ID, session_id).apply()
+    fun setSaleInvoiceCount(saleInvoiceCountt: String) {
+        mPrefs.edit().putString(SALES_INVOICE_COUNT, saleInvoiceCountt).apply()
 
     }
 
-    fun getSessionId(): String {
-        return mPrefs.getString(SESSION_ID, "")!!
+    fun getSaleInvoiceCount(): String {
+        return mPrefs.getString(SALES_INVOICE_COUNT, "")!!
     }
 
     fun setUserID(user_id: Int) {
@@ -91,13 +91,13 @@ public class SessionManger(context: Context, prefFileName: String) {
     }
 
 
-    fun setSalesRmID(sales_rm_id: String) {
-        mPrefs.edit().putString(SELECTED_SALES_RM_ID, sales_rm_id).apply()
+    fun setSessionId(session_id: String) {
+        mPrefs.edit().putString(SESSION_ID, session_id).apply()
 
     }
 
-    fun getsetSalesRmID(): String {
-        return mPrefs.getString(SELECTED_SALES_RM_ID, "")!!
+    fun getSessionId(): String {
+        return mPrefs.getString(SESSION_ID, "")!!
     }
 
 
@@ -371,8 +371,8 @@ public class SessionManger(context: Context, prefFileName: String) {
     companion object {
         const val PREF_FILE_NAME = "SmartMart.pref"
         private val PREF_KEY_USER_LOGGED_IN_MODE = "PREF_KEY_USER_LOGGED_IN_MODE"
+        private val SALES_INVOICE_COUNT = "sales_invoice_count"
         private val SESSION_ID = "session_id"
-        private val SELECTED_SALES_RM_ID = "sales_rm_id"
         private val COUNTER_ID = "counter_id"
         private val USER_ID = "user_id"
         private val USER_NAME = "user_name"

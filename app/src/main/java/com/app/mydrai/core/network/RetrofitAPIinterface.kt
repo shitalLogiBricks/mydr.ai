@@ -1,12 +1,12 @@
 package com.app.mydrai.core.network
 
 
-import com.app.mydrai.data.api.QuestionModel
+import com.app.mydrai.data.api.QuestionAndAnswerModel
 import com.app.mydrai.data.api.SessionModel
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.Header
 
 
 public interface RetrofitApiInterface {
@@ -16,9 +16,10 @@ public interface RetrofitApiInterface {
     abstract fun getAllSession(
     ): Deferred<Response<SessionModel>>
 
-    @POST(WebServiceAPI.getAllChatData)
+    @GET(WebServiceAPI.getAllChatData)
     abstract fun getAllChat(
-    ): Deferred<Response<SessionModel>>
+        @Header("session_id") session_id: String, @Header("reply") reply: String
+    ): Deferred<Response<QuestionAndAnswerModel>>
 
 
 }
