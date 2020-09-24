@@ -7,6 +7,7 @@ import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Query
 
 
 public interface RetrofitApiInterface {
@@ -18,7 +19,7 @@ public interface RetrofitApiInterface {
 
     @GET(WebServiceAPI.getAllChatData)
     abstract fun getAllChat(
-        @Header("session_id") session_id: String, @Header("reply") reply: String
+        @Header("session_id") session_id: String, @Query("reply") reply: String
     ): Deferred<Response<QuestionAndAnswerModel>>
 
 

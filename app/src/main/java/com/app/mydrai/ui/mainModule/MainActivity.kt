@@ -70,8 +70,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), MainNav
                     activityMainBinding!!.recyclerAndList.adapter = questionAdapter
 
                 } else if (it?.error!=null) {
+
                     DialogUtils.stopProgressDialog()
                     Toast.makeText(this@MainActivity, "" + it.error, Toast.LENGTH_SHORT).show()
+
                 }
             })
 
