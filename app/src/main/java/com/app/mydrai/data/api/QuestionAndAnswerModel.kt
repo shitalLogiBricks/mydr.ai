@@ -20,6 +20,9 @@ class QuestionAndAnswerModel {
     @Expose
     var sessionId: String? = null
 
+    @SerializedName("response-type")
+    @Expose
+    val responseType: String?=null
 
     @SerializedName("error")
     @Expose

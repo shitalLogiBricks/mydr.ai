@@ -11,13 +11,14 @@ import com.app.mydrai.core.presentation.base.BaseActivity
 import com.app.mydrai.data.api.QuestionAndAnswerModel
 import com.app.mydrai.databinding.ActivityMainBinding
 import com.app.mydrai.ui.mainModule.adapter.AnswerAdapter
+import es.dmoral.toasty.Toasty
 import logi.retail.utils.DialogUtils
 import logi.retail.utils.SessionManger
 import logi.retail.utils.SessionManger.Companion.PREF_FILE_NAME
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), MainNavigator {
+class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), MainNavigator,AnswerAdapter.GenderSelectListner  {
 
     var activityMainBinding: ActivityMainBinding? = null
     val mainViewModel: MainViewModel by viewModel()
@@ -46,14 +47,14 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), MainNav
             if (it != null) {
 
                 sessionManger?.setSessionId(it.sessionId?.toString()!!)
-
-                callChatApi()
+                var response="";
+                callChatApi(sessionManger?.getSessionId(),response)
             }
         })
     }
 
-    private fun callChatApi() {
-        mainViewModel.chatApiCalling(sessionManger?.getSessionId()!!, "")
+    private fun callChatApi(sessionId: String?, response: String) {
+        mainViewModel.chatApiCalling(sessionId.toString(),response)
             .observe(this, Observer {
                 if (it.error == null) {
                     DialogUtils.stopProgressDialog()
@@ -62,9 +63,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), MainNav
                     questionAdapter =
                         AnswerAdapter(
                             this@MainActivity,
-                            option as ArrayList<String>,mainNavigator
-
-                        )
+                            option as ArrayList<String>,mainNavigator,this)
                     activityMainBinding!!.recyclerAndList.layoutManager =
                         LinearLayoutManager(this@MainActivity, RecyclerView.VERTICAL, false)
                     activityMainBinding!!.recyclerAndList.adapter = questionAdapter
@@ -82,6 +81,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), MainNav
 
     override fun setUp(savedInstanceState: Bundle?) {
 
+    }
+
+    override fun onClickOnGender(response: String?) {
+
+        Toast.makeText(this@MainActivity, "Clicked="+response, Toast.LENGTH_SHORT).show()
+        DialogUtils.startProgressDialog(this@MainActivity);
+        callChatApi(sessionManger?.getSessionId(), response.toString())
     }
 
 

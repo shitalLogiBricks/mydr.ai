@@ -74,12 +74,12 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     }
 
 
-    fun chatApiCalling(sessionId: String, s: String): LiveData<QuestionAndAnswerModel> {
+    fun chatApiCalling(sessionId: String, response: String): LiveData<QuestionAndAnswerModel> {
         val loginModel = MutableLiveData<QuestionAndAnswerModel>()
         uiScope.launch {
 
             val resultDef: Deferred<Response<QuestionAndAnswerModel>> =
-                chatApiCall(sessionId)
+                chatApiCall(sessionId,response)
             try {
                 val result: Response<QuestionAndAnswerModel> = resultDef.await()
                 if (result.isSuccessful) {
@@ -123,8 +123,9 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     }
 
     private fun chatApiCall(
-        sessionId: String
+        sessionId: String,
+        response:String
     ): Deferred<Response<QuestionAndAnswerModel>> {
-        return RetrofitCallAPI.getInstance(WebServiceAPI.SERVERBASE_URL)!!.getAllChat(sessionId, "")
+        return RetrofitCallAPI.getInstance(WebServiceAPI.SERVERBASE_URL)!!.getAllChat(sessionId, response)
     }
 }
