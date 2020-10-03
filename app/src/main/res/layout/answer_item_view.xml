@@ -1,54 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="@dimen/_8sdp"
-    android:layout_gravity="end">
+    android:layout_gravity="end"
+    android:layout_marginEnd="@dimen/_8sdp">
 
     <com.app.mydrai.custom.CBoldTextView
         android:id="@+id/txtAnswer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:layout_marginBottom="@dimen/_5sdp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
         android:background="@drawable/drawable_solid_blue_stroke"
         android:gravity="end"
+        android:paddingStart="@dimen/_8sdp"
+        android:paddingEnd="@dimen/_8sdp"
         android:text="Yes"
         android:textColor="#80D1E3"
         android:textSize="@dimen/_10ssp"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.011" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.app.mydrai.custom.CEditText
         android:id="@+id/etTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="please answer above question."
+        android:layout_marginEnd="8dp"
+        android:hint="Please answer above question."
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="@dimen/_5sdp"
-        app:layout_constraintHorizontal_bias="0.946"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAnswer" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.app.mydrai.custom.CBoldTextView
         android:id="@+id/btnSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_5sdp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/drawable_solid_blue_stroke"
         android:gravity="end"
         android:text="Submit"
         android:textColor="#80D1E3"
         android:textSize="@dimen/_10ssp"
-        app:layout_constraintHorizontal_bias="0.952"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etTxt" />
 </androidx.constraintlayout.widget.ConstraintLayout>

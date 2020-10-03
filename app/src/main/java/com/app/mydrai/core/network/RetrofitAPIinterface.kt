@@ -17,6 +17,8 @@ public interface RetrofitApiInterface {
     abstract fun getAllSession(
     ): Deferred<Response<SessionModel>>
 
+
+    
     @GET(WebServiceAPI.getAllChatData)
     abstract fun getAllChat(
         @Header("session_id") session_id: String, @Query("reply") reply: String
