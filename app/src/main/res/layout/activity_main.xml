@@ -44,7 +44,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginBottom="32dp"
             android:text="Question"
-            android:visibility="invisible"
+            android:visibility="gone"
             android:textColor="@color/bluecolor"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintBottom_toTopOf="@+id/recyclerAndList"

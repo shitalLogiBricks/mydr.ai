@@ -5,6 +5,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -57,15 +58,25 @@ class AnswerAdapter(
 
 
     override fun onBindViewHolder(holder: AnswerAdapter.ViewHolder, position: Int) {
+       var  animFadeIn = AnimationUtils.loadAnimation(context!!,
+            R.anim.fade_in);
+
+
+
           if(arrayListTaxrate!!.size.equals(0))
           {
+
               holder.txtAnswer.visibility=View.GONE
               holder.etTxt.visibility=View.VISIBLE
               holder.btnSubmit.visibility=View.VISIBLE
+              holder.etTxt.startAnimation(animFadeIn)
+              holder.btnSubmit.startAnimation(animFadeIn)
           }else{
+
               holder.etTxt.visibility=View.GONE
               holder.btnSubmit.visibility=View.GONE
               holder.txtAnswer.text = arrayListTaxrate?.get(position)
+              holder.txtAnswer.startAnimation(animFadeIn);
           }
 
           holder.btnSubmit!!.setOnClickListener {
